@@ -33,3 +33,11 @@ margin-bottom: 20px;
 .mostpplur h3{
     font-size: 20px;
 }
+.putline:after{
+    display: block;
+    height: 1px;
+    background-color: rgba(161, 159, 159, 0.88);
+    content: " ";
+    width: 100%;
+    margin:0 auto;
+}

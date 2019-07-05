@@ -28,15 +28,10 @@
           
                <div class="row navrow lineafter d-none d-lg-block">
                       <a href="<?php echo site_url('main'); ?>"><button class="main-nav">home</button></a>
-                      <a href="<?php echo site_url('main/page/international'); ?>"><button class="main-nav">international</button></a>
-                      <a href="<?php echo site_url('main/page/national'); ?>"><button class="main-nav">national</button></a>
-                      <a href="<?php echo site_url('main/page/politics'); ?>"><button class="main-nav">politics</button></a>
-                      <a href="<?php echo site_url('main/page/business'); ?>"><button class="main-nav">business</button></a>
-                      <a href="<?php echo site_url('main/page/editorials'); ?>"><button class="main-nav">editorials</button></a>
-                      <a href="<?php echo site_url('main/page/obituaries'); ?>"><button class="main-nav">obituaries</button></a>
-                      <a href="<?php echo site_url('main/page/education'); ?>"><button class="main-nav">education</button></a>
-                      <a href="<?php echo site_url('main/page/sports'); ?>"><button class="main-nav">sports</button></a>
-                      <a href="<?php echo site_url('main/page/opinion'); ?>"><button class="main-nav">opinion</button></a>
+                       <?php foreach($categories as $category) : 
+                          if($category['category_hname']!='MAIN NEWS') { ?>
+                               <a href="<?php echo site_url('main/page/'.$category['category_value']); ?>"><button class="main-nav"><?php echo strtolower($category['category_hname']) ?></button></a>
+                       <?php } endforeach ?>
                 </div>
         
             <div class="row lineafter">
@@ -93,433 +88,157 @@
                     </a>
                 </div>
             </div>
-            <?php if(isset($main_news)){?>
+
+
+
+<?php foreach($categories as $category) : ?>
+    <?php if(isset(${$category['category_value']})){?>
+        <?php if($category['category_hname']=='MAIN NEWS'){ ?>
             <div class="main-news">
-            <div class="row">
-                <div class="col-12">
-                    <h3>MAIN NEWS</h3>
-                </div>
-            </div>
-            <div class="row linebefore lineafter">
-                <div class="col-lg-12 ">
-                    <div class="row notes">
-                        <?php $count=1;?>
-                         <?php foreach($main_news as $news):?>
-                        <?php if($count==1) { ?>
-                        <div class="col-lg-6 smlbnews smlnews">
-                            <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext">
-                              <div class="row">
-                                 <div class="col-lg-12">
-                                       <p>by <?php echo $news['article_author'];?></p>
-                                       <h3><?php echo $news['article_title'];?></h3>
-                                 </div>
-                              </div>
-                            </a>
-                            <div class="row bignews">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext">
-                                <div class="col-lg-12">
-                                    
-                                    
-                                    <figure class="figure-caption">
-                      <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>                                      <figcaption class="figure-caption "><?php echo $news['article_description'] ; ?></figcaption>
-                                    </figure>
-                                   
-                                    <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><p><?php echo substr($news['article_content'],0,1350).'...';?></p></a>
-                                </div>
-                                </a>
-                                <div class="col-12">
-                                 <div class="row reactnav">
-                                            <p>20m ago</p>
-                                            <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
-                                            <p>6<i class="far fa-comment"></i></p>
-                                            <p><?php echo $news['article_views'];?> views</p>
-                                 </div>
-                                </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h3><?php echo $category['category_hname'] ?></h3>
+                            </div>
                         </div>
-                    </div>
-                        
-                        
-                        <div class="col-lg-6 ">
-                            <div class="row">
-                               
-                            <?php }?>
-                            <?php if($count==2||$count==3||$count==4){?>
-                                
-                                <div class="col-lg-12 smlnews">
-                                    <div class="row">
-                                        <div class="col-4 containimg">
-                                    <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>                                        </div>
-                                        <div class="col-8 ">
+                        <div class="row linebefore lineafter">
+                            <div class="col-lg-12 ">
+                                <div class="row notes">
+                                    <?php $count=1;?>
+                                     <?php foreach(${$category['category_value']} as $news):?>
+                                    <?php if($count==1) { ?>
+                                    <div class="col-lg-6 smlbnews smlnews">
+                                        <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext">
+                                          <div class="row">
+                                             <div class="col-lg-12">
+                                                   <p>by <?php echo $news['article_author'];?></p>
+                                                   <h3><?php echo $news['article_title'];?></h3>
+                                             </div>
+                                          </div>
+                                        </a>
+                                        <div class="row bignews">
                                             <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext">
-                                            <h5><?php echo $news['article_title'];?></h5>
-                                            <p>by <?php echo $news['article_author'];?></p>
-                                            <p><?php echo substr($news['article_content'],0,100).'...';?></p>
-                                            </a>
-                                            <div class="row reactnav">
-                                            <p>20m ago</p>
-                                            <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
-                                            <p>6<i class="far fa-comment"></i></p>
-                                            <p><?php echo $news['article_views'];?> views</p>
-                                            
+                                            <div class="col-lg-12">
+
+
+                                                <figure class="figure-caption">
+                                  <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>                                      <figcaption class="figure-caption "><?php echo $news['article_description'] ; ?></figcaption>
+                                                </figure>
+
+                                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><p><?php echo substr($news['article_content'],0,1350).'...';?></p></a>
                                             </div>
-                                        </div>
+                                            </a>
+                                            <div class="col-12">
+                                             <div class="row reactnav">
+                                                        <p>20m ago</p>
+                                                        <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
+                                                        <p>6<i class="far fa-comment"></i></p>
+                                                        <p><?php echo $news['article_views'];?> views</p>
+                                             </div>
+                                            </div>
                                     </div>
                                 </div>
-                               <?php }?>
-                                <?php if($count==4){
-                              echo '</div></div>';
-                                 }?>
-                        
-                         <?php if($count>4){?>
-                        <div class="col-lg-4 col-md-6 col-12 smlnew ">
-                            <div class="row notes comnews line">
-                            <div class="col-md-5 col-4 containimg">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>
-                            </div>
-                            <div class="col-md-7 col-8">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><h5><?php echo $news['article_title'];?></h5></a>
-                                <div class="row reactnav">
-                                            <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
-                                            <p><?php echo $news['article_views'];?> views</p>
-                                 </div>
-                            </div>
+
+
+                                    <div class="col-lg-6 ">
+                                        <div class="row">
+
+                                        <?php }?>
+                                        <?php if($count==2||$count==3||$count==4){?>
+
+                                            <div class="col-lg-12 smlnews">
+                                                <div class="row">
+                                                    <div class="col-4 containimg">
+                                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>                                        </div>
+                                                    <div class="col-8 ">
+                                                        <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext">
+                                                        <h5><?php echo $news['article_title'];?></h5>
+                                                        <p>by <?php echo $news['article_author'];?></p>
+                                                        <p><?php echo substr($news['article_content'],0,100).'...';?></p>
+                                                        </a>
+                                                        <div class="row reactnav">
+                                                        <p>20m ago</p>
+                                                        <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
+                                                        <p>6<i class="far fa-comment"></i></p>
+                                                        <p><?php echo $news['article_views'];?> views</p>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           <?php }?>
+                                            <?php if($count==4){
+                                          echo '</div></div>';
+                                             }?>
+
+                                     <?php if($count>4){?>
+                                    <div class="col-lg-4 col-md-6 col-12 smlnew ">
+                                        <div class="row notes comnews line">
+                                        <div class="col-md-5 col-4 containimg">
+                                            <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>
+                                        </div>
+                                        <div class="col-md-7 col-8">
+                                            <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><h5><?php echo $news['article_title'];?></h5></a>
+                                            <div class="row reactnav">
+                                                        <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
+                                                        <p><?php echo $news['article_views'];?> views</p>
+                                             </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <?php } $count++;?>
+                                    <?php endforeach?>
+                                    <?php if($count<5 && $count>1){?>
+                                        </div>
+                                    </div>
+                                    <?php } ?>
                             </div>
                         </div>
-                        <?php } $count++;?>
-                        <?php endforeach?>
-                        <?php if($count<5 && $count>1){?>
-                            </div>
                         </div>
-                        <?php } ?>
-                </div>
-            </div>
-            </div>
-            </div>
-            <?php } ?>
-            <?php if(isset($international)){?>
-            <div class="main-news">
-            <div class="row">
-                <div class="col-12">
-                    <h3>INTERNATIONAL</h3>
-                </div>            
-            </div>
-            <div class="row linebefore lineafter">
-                <div class="col-lg-12 ">
-                    <div class="row notes">
-                        <?php foreach($international as $news):?>
-                        <div class="col-lg-4 col-md-6 col-12 smlnew ">
-                            <div class="row notes comnews line">
-                            <div class="col-md-5 col-4 containimg">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>
-                            </div>
-                            <div class="col-md-7 col-8">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><h5><?php echo $news['article_title'];?></h5></a>
-                                <div class="row reactnav">
-                                            <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
-                                            <p><?php echo $news['article_views'];?> views</p>
-                                 </div>
-                            </div>
-                            </div>
                         </div>
-                        
-                        <?php endforeach?>
-                        
-                        
-                        
-                        
+
+        <?php } 
+        else{ ?>
+
+
+                    <div class="main-news">
+                    <div class="row">
+                    <div class="col-12">
+                            <h3><?php echo $category['category_hname'] ?></h3>
                     </div>
-                </div>
-            </div>
-            </div>
-            <?php } ?>
-            <?php if(isset($national)){?>
-            <div class="main-news">
-            <div class="row">
-            <div class="col-12">
-                    <h3>NATIONAL</h3>
-            </div>
-            </div>
-            <div class="row linebefore lineafter">
-                <div class="col-lg-12 ">
-                    <div class="row notes">
-                        
-                        <?php foreach($national as $news):?>
-                        <div class="col-lg-4 col-md-6 col-12 smlnew ">
-                            <div class="row notes comnews line">
-                            <div class="col-md-5 col-4 containimg">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>
-                            </div>
-                            <div class="col-md-7 col-8">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><h5><?php echo $news['article_title'];?></h5></a>
-                                <div class="row reactnav">
-                                            <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
-                                            <p><?php echo $news['article_views'];?> views</p>
-                                 </div>
-                            </div>
+                    </div>
+                    <div class="row linebefore lineafter">
+                        <div class="col-lg-12 ">
+                            <div class="row notes">
+
+
+
+
+                                <?php foreach(${$category['category_value']} as $news):?>
+                                <div class="col-lg-4 col-md-6 col-12 smlnew ">
+                                    <div class="row notes comnews line">
+                                    <div class="col-md-5 col-4 containimg">
+                                        <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>
+                                    </div>
+                                    <div class="col-md-7 col-8">
+                                        <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><h5><?php echo $news['article_title'];?></h5></a>
+                                        <div class="row reactnav">
+                                                    <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
+                                                    <p><?php echo $news['article_views'];?> views</p>
+                                         </div>
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <?php endforeach?>
                             </div>
                         </div>
-                        
-                        <?php endforeach?>
-                        
                     </div>
-                </div>
-            </div>
-            </div>
-            <?php } ?>
-            <?php if(isset($politics)){?>
-            <div class="main-news">
-            <div class="row">
-            <div class="col-12">
-                    <h3>POLITICS</h3>
-            </div>
-            </div>
-            <div class="row linebefore lineafter">
-                <div class="col-lg-12 ">
-                    <div class="row notes">
-                        
-                        <?php foreach($politics as $news):?>
-                        <div class="col-lg-4 col-md-6 col-12 smlnew ">
-                            <div class="row notes comnews line">
-                            <div class="col-md-5 col-4 containimg">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>
-                            </div>
-                            <div class="col-md-7 col-8">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><h5><?php echo $news['article_title'];?></h5></a>
-                                <div class="row reactnav">
-                                            <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
-                                            <p><?php echo $news['article_views'];?> views</p>
-                                 </div>
-                            </div>
-                            </div>
-                        </div>
-                        
-                        <?php endforeach?>
-                        
                     </div>
-                </div>
-            </div>
-            </div>
-            <?php } ?>
-            <?php if(isset($business)){?>
-            <div class="main-news">
-            <div class="row">
-            <div class="col-12">
-                    <h3>BUSINESS</h3>
-            </div>
-            </div>
-            <div class="row linebefore lineafter">
-                <div class="col-lg-12 ">
-                    <div class="row notes">
-                        
-                        <?php foreach($business as $news):?>
-                        <div class="col-lg-4 col-md-6 col-12 smlnew ">
-                            <div class="row notes comnews line">
-                            <div class="col-md-5 col-4 containimg">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>
-                            </div>
-                            <div class="col-md-7 col-8">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><h5><?php echo $news['article_title'];?></h5></a>
-                                <div class="row reactnav">
-                                            <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
-                                            <p><?php echo $news['article_views'];?> views</p>
-                                 </div>
-                            </div>
-                            </div>
-                        </div>
-                        
-                        <?php endforeach?>
-                        
-                    </div>
-                </div>
-            </div>
-            </div>
-            <?php } ?>
-            <?php if(isset($editorials)){?>
-            <div class="main-news">
-            <div class="row">
-            <div class="col-12">
-                    <h3>EDITORIAL'S PICK</h3>
-            </div>
-            </div>
-            <div class="row linebefore lineafter">
-                <div class="col-lg-12 ">
-                    <div class="row notes">
-                        
-                        <?php foreach($editorials as $news):?>
-                        <div class="col-lg-4 col-md-6 col-12 smlnew ">
-                            <div class="row notes comnews line">
-                            <div class="col-md-5 col-4 containimg">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>
-                            </div>
-                            <div class="col-md-7 col-8">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><h5><?php echo $news['article_title'];?></h5></a>
-                                <div class="row reactnav">
-                                            <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
-                                            <p><?php echo $news['article_views'];?> views</p>
-                                 </div>
-                            </div>
-                            </div>
-                        </div>
-                        
-                        <?php endforeach?>
-                        
-                        
-                        
-                    </div>
-                </div>
-            </div>
-            </div>
-            <?php } ?>
-            <?php if(isset($obituaries)){?>
-            <div class="main-news">
-            <div class="row">
-            <div class="col-12">
-                    <h3>OBITUARIES</h3>
-            </div>
-            </div>
-            <div class="row linebefore lineafter">
-                <div class="col-lg-12 ">
-                    <div class="row notes">
-                        
-                        
-                        
-                        
-                        <?php foreach($obituaries as $news):?>
-                        <div class="col-lg-4 col-md-6 col-12 smlnew ">
-                            <div class="row notes comnews line">
-                            <div class="col-md-5 col-4 containimg">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>
-                            </div>
-                            <div class="col-md-7 col-8">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><h5><?php echo $news['article_title'];?></h5></a>
-                                <div class="row reactnav">
-                                            <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
-                                            <p><?php echo $news['article_views'];?> views</p>
-                                 </div>
-                            </div>
-                            </div>
-                        </div>
-                        
-                        <?php endforeach?>
-                        
-                    </div>
-                </div>
-            </div>
-            </div>
-            <?php } ?>
-            <?php if(isset($education)){?>
-            <div class="main-news">
-            <div class="row">
-            <div class="col-12">
-                    <h3>EDUCATION</h3>
-            </div>
-            </div>
-            <div class="row linebefore lineafter">
-                <div class="col-lg-12 ">
-                    <div class="row notes">
-                        
-                        
-                        <?php foreach($education as $news):?>
-                        <div class="col-lg-4 col-md-6 col-12 smlnew ">
-                            <div class="row notes comnews line">
-                            <div class="col-md-5 col-4 containimg">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>
-                            </div>
-                            <div class="col-md-7 col-8">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><h5><?php echo $news['article_title'];?></h5></a>
-                                <div class="row reactnav">
-                                            <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
-                                            <p><?php echo $news['article_views'];?> views</p>
-                                 </div>
-                            </div>
-                            </div>
-                        </div>
-                        
-                        <?php endforeach?>
-                        
-                        
-                    </div>
-                </div>
-            </div>
-            </div>
-            <?php } ?>
-            <?php if(isset($sports)){?>
-            <div class="main-news">
-            <div class="row">
-            <div class="col-12">
-                    <h3>SPORTS</h3>
-            </div>
-            </div>
-            <div class="row linebefore lineafter">
-                <div class="col-lg-12 ">
-                    <div class="row notes">
-                        
-                        
-                        
-                        <?php foreach($sports as $news):?>
-                        <div class="col-lg-4 col-md-6 col-12 smlnew ">
-                            <div class="row notes comnews line">
-                            <div class="col-md-5 col-4 containimg">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>
-                            </div>
-                            <div class="col-md-7 col-8">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><h5><?php echo $news['article_title'];?></h5></a>
-                                <div class="row reactnav">
-                                            <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
-                                            <p><?php echo $news['article_views'];?> views</p>
-                                 </div>
-                            </div>
-                            </div>
-                        </div>
-                        
-                        <?php endforeach?>
-                        
-                        
-                        
-                        
-                    </div>
-                </div>
-            </div>
-            </div>
-            <?php } ?>
-            <?php if(isset($opinion)){?>
-            <div class="main-news">
-            <div class="row">
-            <div class="col-12">
-                    <h3>OPINION</h3>
-            </div>
-            </div>
-            <div class="row linebefore lineafter">
-                <div class="col-lg-12 ">
-                    <div class="row notes">
-                        
-                        
-                        
-                        
-                        <?php foreach($opinion as $news):?>
-                        <div class="col-lg-4 col-md-6 col-12 smlnew ">
-                            <div class="row notes comnews line">
-                            <div class="col-md-5 col-4 containimg">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>
-                            </div>
-                            <div class="col-md-7 col-8">
-                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><h5><?php echo $news['article_title'];?></h5></a>
-                                <div class="row reactnav">
-                                            <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
-                                            <p><?php echo $news['article_views'];?> views</p>
-                                 </div>
-                            </div>
-                            </div>
-                        </div>
-                        
-                        <?php endforeach?>
-                    </div>
-                </div>
-            </div>
-            </div>
-            <?php } ?>
-        
-            
+       <?php } ?>
+    <?php } ?>
+<?php endforeach ?>
+
+   
      
   </div>    
         

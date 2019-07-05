@@ -84,10 +84,10 @@
                         <div class="row" >
 
                       <div class="col-sm-12 col-12 text-left search">
-                                  <form>
-                                  <input type="search" placeholder="Search.." maxlength="25" name="search" autocomplete="on">
+                                  <?php echo form_open('main/search',array('method'=>'get'));?>
+                                   <input type="search" placeholder="Search.." maxlength="25" name="search" autocomplete="on">
                                    <button type="submit" name="submit" class=" btn-secondary"><i class="fas fa-search"></i></button>
-                                  </form>
+                                  <?php echo form_close()?>
                               </div>
                         </div>
                     </div>

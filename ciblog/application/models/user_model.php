@@ -25,9 +25,15 @@ class user_model extends CI_Model{
         if($result['user_uname']==$data_array['user_uname']){
              $this->db->where("user_uname",$result['user_uname']);
              $this->db->update("login",$data_array);
-             $_SESSION['user_logged']=true;
-             $_SESSION['user_type']=$result['user_type'];
-             $_SESSION['username']=$result['user_uname'];
+            
+            $userdata=array(
+                'user_logged'=>true,
+                'user_type'=>$result['user_type'],
+                'username'=>$result['user_uname']
+            );
+            
+            $this->session->set_userdata($userdata);
+             
             return '1';
         }
         else{

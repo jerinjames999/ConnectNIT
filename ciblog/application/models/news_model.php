@@ -33,4 +33,32 @@ class news_model extends CI_Model{
         $this->db->where("slug_url",$slug);
         $this->db->update("articles",$result);
     }
+    public function most_popular_news($slug){
+            $this->db->select('*');
+            $this->db->from('articles');
+            $this->db->where_not_in("slug_url",$slug);
+            $this->db->order_by('article_views','DESC');
+            $this->db->limit(5);
+            $query=$this->db->get();
+            return $query->result_array();
+    }
+    public function search_word($word){
+            $this->db->select('*');
+            $this->db->from('articles');
+            $this->db->or_like("article_category",$word);
+            $this->db->or_like("article_title",$word);
+            $this->db->or_like("article_author",$word);
+            $this->db->or_like("article_description",$word);
+            $this->db->or_like("article_content",$word);
+            $this->db->or_like("live_date",$word);
+            $this->db->group_by("article_category");
+            $this->db->order_by('live_date','DESC');
+            $this->db->order_by('article_views','DESC');
+            $query=$this->db->get();
+            return array(
+                'data'=>$query->result_array(),
+                'count'=>$query->num_rows()
+                    );
+
+    }
 }

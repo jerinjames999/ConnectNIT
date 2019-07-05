@@ -110,31 +110,21 @@ class user extends CI_Controller {
         show_404();
     }
     }
-    public function check_username($name){
-      if(strcasecmp($name,'admin')=='0'){
-          $this->form_validation->set_message('check_username', 'The {field} field can not be the word '.$name);
-                        return FALSE;
-      } 
-    else
-       {
-             return TRUE;
-         }
-        
-    }
+    
     
     public function logout(){
-        if(!isset($_SESSION['user_logged'])){
+        if(!$this->session->has_userdata('user_logged')){
             show_404();
         }
         else{
-        session_destroy();
+        $this->session->sess_destroy();
             
             echo '<script type="text/javascript">
                  window.onload=function(){
                 alert("loggedout successfuly");
             }
             </script>';
-            redirect('main');
+            redirect('user/login');
     }
     }
     
@@ -163,6 +153,16 @@ class user extends CI_Controller {
 }
 }*/
     
+    public function check_username($user_name){
+        if(strcasecmp($user_name,'admin')=='0'){
+            $this->form_validation->set_message('check_username', 'The {field} cannot be '.$user_name);
+                        return FALSE;
+        }
+        else{
+            return true;
+        }
+            
+    }
     
     
 }

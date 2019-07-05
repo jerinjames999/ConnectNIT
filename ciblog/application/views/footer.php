@@ -17,7 +17,6 @@
 
     <title>newspaper:footer</title>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/footer.css">
-        <script src="footer.js"></script>
     
     </head>
     <body>

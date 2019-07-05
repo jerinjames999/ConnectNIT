@@ -17,6 +17,36 @@
 
     <title>newspaper</title>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/newsdetail.css">
+    <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript">
+             $('document').ready(function(){
+                 $('button').click(function(event){
+                     event.preventDefault();
+                    
+                     var ans='';
+                     
+                     var id= this.id;
+                     $('.pollq').each(function(){
+                         if($(this).is(':checked')){
+                            ans=$(this).val();
+                             
+                     }
+                     } );
+                 
+                         $.ajax({
+                             type: "POST",
+                             url: "<?php site_url('poll/poll_submit')?>",
+                             data : { 
+                                      ans: ans,
+                                      id: id
+                                   }
+                           }).done(function(data){
+                                 
+                           }).fail(function(data){
+                         });
+                  });
+              });
+        </script>
     </head>
     <body>
      <div class="articlepage">
@@ -61,32 +91,33 @@
                         <div class="col-2">
                         </div>
                         <div class="col-8 text-center my-auto poll">
+                           <?php foreach($polls as $poll):?>
                            <div class="row pollsection">
-                                <h2>The name of the planet is earth. do you agree?</h2>
+                               <div class="col-12">
+                                   <h2><?php echo $poll['poll_question']; ?></h2>
+                               </div>
+                                
                                <div class="col-12 text-center">
-                                <form>
+                                   <?php 
+                                     echo form_open(site_url('poll/poll_submit'));
+                                    ?>
                                     <div class="row">
-                                        <div class="col-3"></div>
-                                        <div class="col-3 text-center"><input type="checkbox" name="pollagree"><label>Agree</label><p>(42%)</p></div>
-                                        <div class="col-3 text-center"><input type="checkbox" name="polldisagree"><label>Disagree</label><p>(58%)</p></div>
-                                        <div class="col-3"></div>
+                                       
+                                        <div class="col-3 text-center"><input type="checkbox"  name="pollagree-1" value="poll_ans1" class="pollq"><label><?php echo $poll['poll_option1']; ?></label><p><?php echo $poll['poll_ans1']*100/$poll['poll_response_no'] . '%'; ?></p></div>
+                                        
+                                        <div class="col-3 text-center"><input type="checkbox" name="pollagree-2" value="poll_ans1" class="pollq"><label><?php echo $poll['poll_option2']; ?></label><p><?php echo $poll['poll_ans2']*100/$poll['poll_response_no'] . '%'; ?></p></div>
+                                        
+                                        <div class="col-3 text-center"><input type="checkbox" name="pollagree-3" value="poll_ans1" class="pollq"><label><?php echo $poll['poll_option3']; ?></label><p><?php echo $poll['poll_ans3']*100/$poll['poll_response_no'] . '%'; ?></p></div>
+                                        
+                                        <div class="col-3 text-center"><button type="button" class="text-center" id="polling<?php echo $poll['poll_id']; ?>" name="submit">submit</button></div>
                                     </div>
-                                </form>
+                                <?php 
+                                    echo form_close();
+                                ?>
                                    </div>
                            </div>
-                            <div class="row pollsection">
-                                <h2>The name of the planet is earth. do you agree?</h2>
-                                <form>
-                                    <div class="row">
-                                        <div class="col-3"></div>
-                                        <div class="col-3 text-center"><input type="checkbox" name="pollagree1"><label>Agree</label><p>(42%)</p></div>
-                                        <div class="col-3 text-center"><input type="checkbox" name="polldisagree1"><label>Disagree</label><p>(58%)</p></div>
-                                        <div class="col-3"></div>
-
-
-                                    </div>
-                                </form>
-                           </div> 
+                            <?php endforeach?>
+                             
                         </div>
                         
                         <div class="col-2">
@@ -99,44 +130,52 @@
             </div>
             <div class="col-lg-3 col-12 mostpplur">
                 
-                 <h3>Most popular:-</h3>
                 
-                <div class="row">
+                <style>
+                .newstext,
+                .newstext:hover{
+                    text-decoration:none;
+                    color: black;
+                 }
+                    .reactnav{
+                            float: right;
+                        }
+                    .reactnav p{
+                        margin-right: 15px;
+                    }
+                    .reactnav:before{
+
+                        display: block;
+                        height: 1px;
+                        background-color: rgba(209, 205, 205, 0.83);
+                        content: " ";
+                        width: 100%;
+                        margin:0 auto 5px auto;
+
+                    }
+                
+                </style>
+                
+                
+                 <h3>Most popular:-</h3>
+                <?php foreach($most_popular as $news):?>
+                <div class="row putline">
                     <div class="col-lg-6 col-3 text-center">
                                                 
                 <!--img of 1:1 ratio-->
 
-                        <a href="#"> <img src="<?php echo base_url();?>assets/images/articles/eg.jpg" alt="world "></a>
+                        <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail "></a>
                     </div>
                     <div class="col-6">
-                        <h5>world's best university</h5>
-                        <p>6mins ago</p>
+                        <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><h5><?php echo $news['article_title'];?></h5></a>
+                        <div class="row reactnav">
+                            <p><?php echo $news['article_likes'];?><i class="far fa-thumbs-up"></i></p>
+                            <p><?php echo $news['article_views'];?> views</p>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-6 col-3 text-center">
-                                                
-                <!--img of 1:1 ratio-->
-
-                        <a href="#"> <img src="<?php echo base_url();?>assets/images/articles/eg.jpg" alt="world "></a>
-                    </div>
-                    <div class="col-6">
-                        <h5>world's best university</h5>
-                        <p>6mins ago</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-3 text-center">
-                                                
-                <!--img of 1:1 ratio-->
-
-                        <a href="#"> <img src="<?php echo base_url();?>assets/images/articles/eg.jpg" alt="world"></a>
-                    </div>
-                    <div class="col-6">
-                        <h5>world's best university</h5>
-                        <p>6mins ago</p>
-                    </div>
-                </div>
+                <?php endforeach ?>
+                
             </div>
         </div>
          <div class="row">
