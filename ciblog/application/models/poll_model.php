@@ -20,10 +20,16 @@ class poll_model extends CI_Model{
         return $query->result_array();
     }
     public function add_poll($data){
-        $this->db->set($data['option'],$data['option']+1, FALSE);
+        $this->db->set($data['option'],$data['option'].'+ 1', FALSE);
         $this->db->set('poll_response_no','poll_response_no+1', FALSE);
         $this->db->where("poll_id",$data['id']);
-        $this->db->update("login");/*tuwussssssssssssssssssssssssssssssssssssrsssssssssssssssjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj*/
+        $this->db->update("polls");/*tuwussssssssssssssssssssssssssssssssssssrsssssssssssssssjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj*/
+        
+       /* $this->db->select("*");
+        $this->db->from("polls");
+        $this->db->where("poll_id",$data['id']);
+        $query=$this->db->get();
+        return $query->result_array();*/
     }
     public function list_polls($category='all'){
         if($category=='all'){
@@ -44,6 +50,13 @@ class poll_model extends CI_Model{
         }
         $query=$this->db->get();
         return $query->result_array();
+    }
+    public function poll_display_answer($id){
+         $this->db->select("*");
+        $this->db->from("polls");
+        $this->db->where("poll_id",$id);
+        return $query=$this->db->get();
+         
     }
     
 }

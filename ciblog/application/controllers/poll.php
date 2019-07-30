@@ -23,9 +23,7 @@ class poll extends CI_Controller {
             $poll['opinion']=$this->poll_model->view_poll('opinion');
         }
         
-        
-        $this->load->view('',$poll);
-  }
+ }
     public function poll_slug($slug){
        $data=$this->poll_model->view_poll_slug($slug);
        return $data;
@@ -33,14 +31,31 @@ class poll extends CI_Controller {
     public function poll_submit(){
         if(isset($_POST['ans'])){
             $column=$_POST['ans'];/* it is column name to increment */
-            $id=substr($_POST['id'],7);
+            $id=$_POST['id'];
              $data=array(
                  'id'=>$id,
                  'option'=>$column
              );
-           $this->poll_model->add_poll($data); 
+            $this->poll_model->add_poll($data); 
+            //$answer1=$dta['poll_ans1']*100/$dta['poll_response_no'];
+            //$answer2=$dta['poll_ans2']*100/$dta['poll_response_no'];
+            //$answer3=$dta['poll_ans3']*100/$dta['poll_response_no'];
+            
+            //echo '<div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer1.'</p></div><div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer2.'</p></div><div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer3.'</p></div>';
         }
     }
+     public function poll_answer(){
+         
+         $id=$_POST['id'];
+         $dta=$this->poll_model->poll_display_answer($id); 
+         $result=$dta->row();
+         $answer1=round($result->poll_ans1*100/$result->poll_response_no,1);
+         $answer2=round($result->poll_ans2*100/$result->poll_response_no,1);
+         $answer3=round($result->poll_ans3*100/$result->poll_response_no,1);
+         
+      
+        echo '<div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer1.'</p></div><div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer2.'</p></div><div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer3.'</p></div>';
+     }
 }
 
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-grid.css">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-grid.css.map">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-grid.min.css">
@@ -20,32 +21,80 @@
     <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery-3.4.1.min.js"></script>
         <script type="text/javascript">
              $('document').ready(function(){
-                 $('button').click(function(event){
+                 //$('.poll_percent').hide();
+                 $('.pollsubmit').click(function(event){
                      event.preventDefault();
                     
                      var ans='';
                      
-                     var id= this.id;
+                     var id= $(this).attr('id');
                      $('.pollq').each(function(){
                          if($(this).is(':checked')){
                             ans=$(this).val();
                              
+                    
                      }
                      } );
-                 
+                     
+                     //$.post('<?php //echo site_url('poll/poll_submit')?>',{'ans': ans,'id':id },function(data){ alert('success'); });
+      if(typeof ans!=='undefined'){
                          $.ajax({
                              type: "POST",
-                             url: "<?php site_url('poll/poll_submit')?>",
+                             url: "<?php echo site_url('poll/poll_submit')?>",
                              data : { 
-                                      ans: ans,
-                                      id: id
-                                   }
-                           }).done(function(data){
+                                      'ans':ans,
+                                      'id':id
+                                   },
+                             success:function(data){
+                                 alert('thank you for your valuable response \n poll added successfully');
+                                 displaypollresult();
                                  
-                           }).fail(function(data){
-                         });
+                                  function displaypollresult(){
+                                       $.ajax({
+                                                 type: "POST",
+                                                 url: "<?php echo site_url('poll/poll_answer')?>",
+                                                 data : { 
+                                                          'id':id
+                                                       },
+                                                 success:function(data){
+                                                    //$('#id<?php //echo $poll['poll_id']?> #pollreslt').html('<div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer1.'</p></div><div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer2.'</p></div><div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer3.'</p></div>');
+                                                     
+                                                    $('#id'+id).html(data);
+
+                                                 }
+                                               });
+                                            }
+                                
+                             }
+                           });
+                        
+              
+                    }
+                     
+                     
                   });
-              });
+                 
+                 $('#submit_comment').click(function(event){
+                     event.preventDefault();
+                     var form_data=$(this).serialize();
+                     $.ajax({
+                             type: "POST",
+                             url: "<?php echo site_url('comment/addcomment')?>",
+                             data : form_data,
+                             dataType:'JSON',
+                             success:function(data){
+                                alert('thank you for your valuable response \n poll added successfully');
+                                if(data.error!=''){
+                                    $('#comment_form')[0].reset();
+                                    $('#comment_message').html(data.error);  
+                                    }
+                                }
+                                
+                             });
+                         
+                     });
+                     
+                  });
         </script>
     </head>
     <body>
@@ -92,7 +141,7 @@
                         </div>
                         <div class="col-8 text-center my-auto poll">
                            <?php foreach($polls as $poll):?>
-                           <div class="row pollsection">
+                           <div class="row pollsection ">
                                <div class="col-12">
                                    <h2><?php echo $poll['poll_question']; ?></h2>
                                </div>
@@ -102,18 +151,41 @@
                                      echo form_open(site_url('poll/poll_submit'));
                                     ?>
                                     <div class="row">
-                                       
-                                        <div class="col-3 text-center"><input type="checkbox"  name="pollagree-1" value="poll_ans1" class="pollq"><label><?php echo $poll['poll_option1']; ?></label><p><?php echo $poll['poll_ans1']*100/$poll['poll_response_no'] . '%'; ?></p></div>
                                         
-                                        <div class="col-3 text-center"><input type="checkbox" name="pollagree-2" value="poll_ans1" class="pollq"><label><?php echo $poll['poll_option2']; ?></label><p><?php echo $poll['poll_ans2']*100/$poll['poll_response_no'] . '%'; ?></p></div>
+                                        <div class="col-3 text-center">
+                                            <input type="checkbox"  name="pollagree-1" value="poll_ans1" class="pollq">
+                                            <label><?php echo $poll['poll_option1']; ?></label>
+                                           
+                                        </div>
+                                        <div class="col-3 text-center">
+                                            <input type="checkbox"  name="pollagree-2" value="poll_ans2" class="pollq">
+                                            <label><?php echo $poll['poll_option2']; ?></label>
+                                            
+                                        </div>
+                                        <div class="col-3 text-center">
+                                            <input type="checkbox"  name="pollagree-3" value="poll_ans3" class="pollq">
+                                            <label><?php echo $poll['poll_option3']; ?></label>
+                                            
+                                        </div>
                                         
-                                        <div class="col-3 text-center"><input type="checkbox" name="pollagree-3" value="poll_ans1" class="pollq"><label><?php echo $poll['poll_option3']; ?></label><p><?php echo $poll['poll_ans3']*100/$poll['poll_response_no'] . '%'; ?></p></div>
                                         
-                                        <div class="col-3 text-center"><button type="button" class="text-center" id="polling<?php echo $poll['poll_id']; ?>" name="submit">submit</button></div>
+                                        
+                                        
+                                        <div class="col-3 text-center">
+                                            <button type="button" class="text-center pollsubmit" id="<?php echo $poll['poll_id']; ?>" name="submit">submit</button>
+                                        </div>
+                                        
                                     </div>
                                 <?php 
                                     echo form_close();
                                 ?>
+                                   </div>
+                                   <div class="col-12 text-center">
+                                       
+                                       <div class="row" id="id<?php echo $poll['poll_id']?>">
+                                          
+                                        </div>
+                                       
                                    </div>
                            </div>
                             <?php endforeach?>
@@ -124,14 +196,61 @@
                         </div>
                     </div>
                 </div> 
+                <br>
                 <div class="row">
                 <!--for like and comments-->
+                    <div class="col-sm-2">
+                    </div>
+                    <div class="col-sm-8 col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                  <?php 
+                                     echo form_open(site_url('comment/addcomment'),'id="comment_form"');
+                                    ?>
+                                <!--<input type="text" name="comment" id="commentid" placeholder="Comment here...">-->
+                                <input type="hidden" id="article_id" name="article_id" value="<?php echo $news_item['article_id'] ; ?>">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <textarea id="comment" name="comment" placeholder="Comment here..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <input type="submit" name="submit" id="submit_comment" value="submit">
+                                    </div>
+                                </div>
+                                    <?php 
+                                        echo form_close();
+                                    ?>
+                                
+                            </div>
+                            <div class="col-12">
+                                <span id="comment_message"></span>
+                            </div>
+                            
+                            <div class="col-12" id="comments">
+                                
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                    </div>
+                    
                 </div> 
             </div>
+            <br>
             <div class="col-lg-3 col-12 mostpplur">
                 
                 
                 <style>
+                    #comment{
+                        width: 100%;
+                    }
                 .newstext,
                 .newstext:hover{
                     text-decoration:none;

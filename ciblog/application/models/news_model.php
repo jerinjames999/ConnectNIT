@@ -45,7 +45,7 @@ class news_model extends CI_Model{
     public function search_word($word){
             $this->db->select('*');
             $this->db->from('articles');
-            $this->db->or_like("article_category",$word);
+            $this->db->like("article_category",$word);
             $this->db->or_like("article_title",$word);
             $this->db->or_like("article_author",$word);
             $this->db->or_like("article_description",$word);
