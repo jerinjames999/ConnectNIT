@@ -50,18 +50,26 @@
                                                     </div>
                                                     <div class="col-md-12 text-center">
 
-                                                          <input type="file" name="image"> <?php if(isset($error)){echo $error;}?>
+                                                          <input type="file" name="image" > <?php if(isset($error)){echo $error;}?>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                         
+                                         <br>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center my-auto">
+
+                                                <?php echo form_error("img_desc",'<h6 class="col-sm-12 text-center my-auto error">','</h6>'); ?>
+                                                <input type="text" name="img_desc" placeholder="image description..." value="<?php echo set_value('img_desc'); ?>" style="width:50%;">
+                                            </div>
+                                        </div>
+                                
                                         <div class="row">
                                             <div class="col-md-12 text-center my-auto">
 
                                                 <?php echo form_error("content",'<h6 class="col-sm-12 text-center my-auto error">','</h6>'); ?>
 
-                                                <textarea rows="20" cols="100" placeholder="content..." name="content" value="<?php echo set_value('content'); ?>"></textarea>
+                                                <textarea rows="20" cols="100" placeholder="content..." name="content" ><?php echo set_value('content'); ?></textarea>
                                             </div>
                                         </div>
                                 <br>

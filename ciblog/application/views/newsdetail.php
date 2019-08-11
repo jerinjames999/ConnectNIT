@@ -21,9 +21,8 @@
     <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery-3.4.1.min.js"></script>
         <script type="text/javascript">
              $('document').ready(function(){
-                 //$('.poll_percent').hide();
                  $('.pollsubmit').click(function(event){
-                     event.preventDefault();
+                    event.preventDefault();
                     
                      var ans='';
                      
@@ -31,8 +30,6 @@
                      $('.pollq').each(function(){
                          if($(this).is(':checked')){
                             ans=$(this).val();
-                             
-                    
                      }
                      } );
                      
@@ -75,24 +72,57 @@
                   });
                  
                  $('#submit_comment').click(function(event){
-                     event.preventDefault();
-                     var form_data=$(this).serialize();
+                    event.preventDefault();
+                     //var form_data=$(this).serialize();
+                     var comment=$('#comment').val();
+                     var article_id=$('#article_id').val();
+                     var parent_id=$('#parent_id').val();
+                     
                      $.ajax({
                              type: "POST",
                              url: "<?php echo site_url('comment/addcomment')?>",
-                             data : form_data,
-                             dataType:'JSON',
+                             data : {'comment':comment,
+                                     'article_id':article_id,
+                                     'parent_id':parent_id
+                                    },
                              success:function(data){
-                                alert('thank you for your valuable response \n poll added successfully');
+                                alert('thank you for your valuable response \n comment added successfully');
                                 if(data.error!=''){
                                     $('#comment_form')[0].reset();
-                                    $('#comment_message').html(data.error);  
+                                    $('#comment_message').html(data);
+                                     load_comments();
+                                     function load_comments(){
+                                         $.ajax({
+                                             type:'POST',
+                                             url:"<?php echo site_url('comment/load_all_comments')?>",
+                                             data:{'article_id':article_id},
+                                             success:function(data){
+                                                 alert('xxxxxxxxxxxxxx');
+                                                 $('#comments').html(data);
+                                             }
+                                         });
+                                     }
                                     }
                                 }
                                 
                              });
+                    
+                     
+                     
+                     
                          
                      });
+                 
+                 
+                 
+                 $('.reply').click(function(){
+                     alert('rdygty');
+                     var comment_id=$(this).attr('id');
+                     $('#parent_id').val(comment_id);
+                     
+                     $('#comment').focus();
+                 });
+                 
                      
                   });
         </script>
@@ -209,6 +239,7 @@
                                     ?>
                                 <!--<input type="text" name="comment" id="commentid" placeholder="Comment here...">-->
                                 <input type="hidden" id="article_id" name="article_id" value="<?php echo $news_item['article_id'] ; ?>">
+                                <input type="hidden" id="parent_id" name="parent_id" value="0">
                                 <div class="row">
                                     <div class="col-12">
                                         <textarea id="comment" name="comment" placeholder="Comment here..."></textarea>

@@ -144,6 +144,7 @@
                   <li><a href="#"><p>Contact us</p></a></li>
                   <li><a href="#"><p>Advertise</p></a></li>
                   <li><a href="#"><p>Work with us</p></a></li>
+                  <li><a href="<?php echo site_url(); ?>/forum"><p>Forums</p></a></li>
                   <li><a href="#"><p>Subsccribe</p></a></li>
                   <li><a href="#"><p>Help</p></a></li>
               </ul>

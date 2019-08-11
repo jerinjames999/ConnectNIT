@@ -7,8 +7,12 @@ class admin_model extends CI_Model{
         parent::__construct();
     }
 	 
-	public function upload_article($article_data){
+	public function add_article($article_data){
         return $this->db->insert("articles",$article_data);
+    }
+    public function edit_article($article_data){
+        $this->db->where('article_id',$article_data['article_id']);
+        return $this->db->update("articles",$article_data);
     }
     public function list_articles($category='all'){
         if($category=='all'){                                 /*sort according to order by join*/

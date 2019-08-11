@@ -6,7 +6,7 @@ class admin extends CI_Controller {
 	 public function __construct(){
         parent::__construct();
          $this->load->helper(array('url','form'));
-         $this->load->model('admin_model');
+         $this->load->model(array('admin_model','news_model'));
     }
     public function index(){
         $this->load->view('admin_panel');
@@ -21,8 +21,8 @@ class admin extends CI_Controller {
         $this->load->view('adminallarticles',$result);
     }
     public function edit_article(){
-        
-        $this->load->view('admineditarticle');
+        $result['categories']=$this->admin_model->list_all_categories();
+        $this->load->view('admineditarticle',$result);
     }
     public function add_poll(){
         
@@ -62,14 +62,15 @@ class admin extends CI_Controller {
     public function form_submit_upload_article(){
         if(isset($_POST['uploadarticle']))
         {
+          
         $this->form_validation->set_rules('title','Title','required|min_length[4]|max_length[100]|trim');
         $this->form_validation->set_rules('author','Author name','required|min_length[3]|max_length[45]|trim');
         $this->form_validation->set_rules('category','Category','required');
         $this->form_validation->set_rules('content','Content','required|min_length[20]');
-        
+        $this->form_validation->set_rules('img_desc','Image description','max_length[500]|trim');
+        $data['categories']=$this->admin_model->list_all_categories();
             if($this->form_validation->run()==false){
-                $this->load->view('adminaddarticle');
-                
+                    $this->load->view('adminaddarticle',$data);
             }
             else{
                 $location=strtolower($_POST['category']);
@@ -77,10 +78,12 @@ class admin extends CI_Controller {
                 $config['allowed_types']='jpg|png|jpeg';
                 $config['max_size']='2000';
                 $this->load->library('upload',$config);
+                
+                   
                     if(!$this->upload->do_upload('image'))
                     {
-                        $error=array('error'=>$this->upload->display_errors());
-                        $this->load->view('adminaddarticle',$error);
+                        $data['error']=$this->upload->display_errors();
+                        $this->load->view('adminaddarticle',$data);
                     }
                     else{
                         $imgdata = array('upload_data' => $this->upload->data());
@@ -91,26 +94,108 @@ class admin extends CI_Controller {
                         $datenow=date("Y-m-d H:i:s");
                         $slug = date("Y-m-d-His").url_title($this->input->post('title'), 'dash', TRUE);
                         
-
-                        $article_data=array(
+                            $article_data=array(
                             "article_category"=>$data['category'],
                             "article_title"=>$data['title'],
                             "article_author"=>$data['author'],
                             "article_content"=>$data['content'],
+                            "article_description"=>$data['img_desc'],
                             "article_img"=>'assets/images/articles/'.$location.'/'.$imgname,
                             "slug_url"=>$slug,
                             "edited_date"=> $datenow
-                        );
-                        if($this->admin_model->upload_article($article_data)=='1'){
-                               $data['upload_data']='article uploaded successfully';                   
+                            );
+                            if($this->admin_model->add_article($article_data)=='1'){
+                               $data['upload_data']='article uploaded successfully'; 
+                               $data['categories']=$this->admin_model->list_all_categories();
                                $this->load->view('adminaddarticle',$data);
                             
                           }
                         else{   
                                $data['upload_data']='article uploading failed';
+                               $data['categories']=$this->admin_model->list_all_categories();
                                $this->load->view('adminaddarticle',$data); 
 
                             }
+                       
+                       
+                    }
+        
+            
+            }
+            
+            
+       
+    }
+     
+}  
+    public function form_submit_edit_article(){
+        if(isset($_POST['editarticle']))
+        {
+           
+        $this->form_validation->set_rules('title','Title','required|min_length[4]|max_length[100]|trim');
+        $this->form_validation->set_rules('author','Author name','required|min_length[3]|max_length[45]|trim');
+        $this->form_validation->set_rules('category','Category','required');
+        $this->form_validation->set_rules('img_desc','Image description','max_length[500]|trim');
+        $this->form_validation->set_rules('content','Content','required|min_length[20]');
+        $data['categories']=$this->admin_model->list_all_categories();
+            if($this->form_validation->run()==false){
+                    $this->load->view('admineditarticle',$data);
+                
+            }
+            else{
+                $location=strtolower($_POST['category']);
+                $config['upload_path']='assets/images/articles/'.$location;
+                $config['allowed_types']='jpg|png|jpeg';
+                $config['max_size']='2000';
+                $this->load->library('upload',$config);
+                
+                   
+                    if(!$this->upload->do_upload('image'))
+                    {
+                        $data['error']=$this->upload->display_errors();
+                        $this->load->view('admineditarticle',$data);
+                    }
+                    else{
+                        $imgdata = array('upload_data' => $this->upload->data());
+                        //$imgname=$imgdata['file_name'];
+                        $imgname=$_FILES['image']['name'];
+                       // $imgextension=$_FILES['image']['type'];
+                        $data=$this->input->post();
+                        $datenow=date("Y-m-d H:i:s");
+                        $slug = date("Y-m-d-His").url_title($this->input->post('title'), 'dash', TRUE);
+                        
+                       
+                            $article_data=array(
+                            "article_id"=>$data['articleid'],
+                            "article_category"=>$data['category'],
+                            "article_views"=>0,
+                            "article_likes"=>0,
+                            "article_status"=>0,
+                            "article_comments"=>0,
+                            "article_title"=>$data['title'],
+                            "article_author"=>$data['author'],
+                            "article_content"=>$data['content'],
+                            "article_img"=>'assets/images/articles/'.$location.'/'.$imgname,
+                            "article_description"=>$data['img_desc'],
+                            "slug_url"=>$slug,
+                            "edited_date"=> $datenow
+                            );
+                             if($this->admin_model->edit_article($article_data)=='1'){
+                               $data['upload_data']='article uploaded successfully'; 
+                               $data['categories']=$this->admin_model->list_all_categories();
+                               $this->load->view('admineditarticle',$data);
+                            
+                          }
+                        else{   
+                               $data['upload_data']='article uploading failed';
+                               $data['categories']=$this->admin_model->list_all_categories();
+                               $this->load->view('admineditarticle',$data); 
+
+                            }
+                        
+                        
+                        
+                       
                     }
         
             
@@ -169,37 +254,32 @@ class admin extends CI_Controller {
 
                 if($this->form_validation->run()==false){
                     $this->load->view('adminaddpoll');
-
                 }
                 else{
+                    ////////////////function to find article id from slug and insert it into the poll table instad of slug
                         $data=$this->input->post();
-                        
                         $datenow=date("Y-m-d H:i:s");                        
                         $category=$this->admin_model->get_category($data['pollurl']);
-                        
-                        $poll_data=array(
-                            "poll_category"=>$category,
-                            "poll_question"=>$data['pollquestion'],
-                            "poll_option1"=>$data['pollopt1'],
-                            "poll_option2"=>$data['pollopt2'],
-                            "poll_option3"=>$data['pollopt3'],
-                            "poll_articleurl"=>$data['pollurl'],
-                            "edited_date"=> $datenow
-                        );
-                        if($this->admin_model->upload_poll($poll_data)=='1'){
-                               $data['upload_data']='poll uploaded successfully';
-                               $this->load->view('adminaddpoll',$data);
-                            
-                          }
-                        else{   
-                               $data['upload_data']='poll uploading failed';
-                               $this->load->view('adminaddpoll',$data); 
+                            $poll_data=array(
+                                "poll_category"=>$category,
+                                "poll_question"=>$data['pollquestion'],
+                                "poll_option1"=>$data['pollopt1'],
+                                "poll_option2"=>$data['pollopt2'],
+                                "poll_option3"=>$data['pollopt3'],
+                                "poll_articleurl"=>$data['pollurl'],
+                                "edited_date"=> $datenow
+                            );
+                            if($this->admin_model->upload_poll($poll_data)=='1'){
+                                   $data['upload_data']='poll uploaded successfully';
+                                   $this->load->view('adminaddpoll',$data);
 
-                            }
-                  
+                              }
+                            else{   
+                                   $data['upload_data']='poll uploading failed';
+                                   $this->load->view('adminaddpoll',$data); 
+                                }
                 }
                     
-
     }
     else{
         
@@ -242,7 +322,6 @@ class admin extends CI_Controller {
 
                 if($this->form_validation->run()==false){
                      
-                   // redirect('admin/add_category');
 
                 }
                 else{
@@ -288,4 +367,24 @@ class admin extends CI_Controller {
             
         }
     }
+    public function form_slugrtkl(){
+        if(isset($_POST['submit_slugrtkl'])){
+            $this->form_validation->set_rules('pollurl','article url','required|trim|callback_check_url|min_length[8]');
+            
+            if($this->form_validation->run()==false){
+                $article['upload_data']='';
+                }
+            else{
+                $data=$this->input->post();
+                $article['categories']=$this->admin_model->list_all_categories();
+                $article['article']=$this->news_model->get_news($data['pollurl']);
+            }
+            $this->load->view('admineditarticle',$article);
+            
+        }
+        
+    }
 }
+
+
+

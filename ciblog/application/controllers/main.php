@@ -52,7 +52,7 @@ class main extends CI_Controller {
     }
     
     public function view($slug = NULL)
-    {        
+    {         
             $data['news_item'] = $this->news_model->get_news($slug);
             if (empty($data['news_item']))
             {    
@@ -63,6 +63,9 @@ class main extends CI_Controller {
             //$data['title'] = $data['news_item']['article_title'];
             $data['most_popular']=$this->most_popular($slug);
             $this->load->model('poll_model');
+            
+            /////find articleid using slug or id is there above news_item and display polls using it.
+            
             $data['polls']=$this->poll_model->view_poll_slug($slug);
             $this->load->view('header');
             $this->load->view('newsdetail', $data);
