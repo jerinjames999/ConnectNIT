@@ -16,6 +16,7 @@ class poll_model extends CI_Model{
         $this->db->select("*");
         $this->db->from("polls");
         $this->db->where("poll_articleurl",$slug);
+        $this->db->where("poll_status",1);
         $query=$this->db->get();
         return $query->result_array();
     }

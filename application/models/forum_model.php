@@ -7,8 +7,9 @@ class forum_model extends CI_Model{
         parent::__construct();
     }
     public function get_all_forums(){
-        $this->db->select('*');
+        $this->db->select('forums.*,login.user_type AS usertype');
         $this->db->from('forums');
+        $this->db->join('login','forums.forum_startedby=login.user_uname');
         $this->db->order_by('forum_date','DESC');
         $query=$this->db->get();
         return $query->result_array();
@@ -23,8 +24,12 @@ class forum_model extends CI_Model{
                 $query = $this->db->get('forums');
                 return $query->result_array();
         }
-
-        $query = $this->db->get_where('forums', array('forum_slug_url' => $slug));
+        $this->db->select('forums.*,login.user_type AS usertype');
+        $this->db->from('forums');
+        $this->db->join('login','forums.forum_startedby=login.user_uname');
+        $this->db->where('forum_slug_url',$slug);
+        $query=$this->db->get();
+        //$query = $this->db->get_where('forums',array('forum_slug_url' => $slug));
         return $query->row_array();
      }
     public function update_views($slug){

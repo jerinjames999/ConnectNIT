@@ -22,9 +22,14 @@ class forum extends CI_Controller {
         $this->load->view('footer');
     }
     public function threatform(){
+        if(isset($_SESSION['user_logged'])){
         $this->load->view('header');
         $this->load->view('addthreat');
         $this->load->view('footer');
+        }
+        else{
+            show_404();
+        }
     }
     
     public function forum_submitthreat(){
@@ -38,17 +43,15 @@ class forum extends CI_Controller {
 
         }
         else{
-            
                     $data=$this->input->post();
                     $datenow=date("Y-m-d");
                     $timenow=date("H:i:s");
                     $slug = date("Y-m-d-His").url_title($this->input->post('forum_title'), 'dash', TRUE);
 
                     $threat_data=array(
-                        
                         "forum_title"=>$data['forum_title'],
                         "forum_description"=>$data['description'],
-                        "forum_startedby"=>'jerin',
+                        "forum_startedby"=>$_SESSION['username'],
                         "forum_slug_url"=>$slug,
                         "forum_date"=> $datenow,
                         "forum_time"=> $timenow

@@ -29,13 +29,14 @@
                     <a href="<?php echo site_url(); ?>/main"><input type="button"  value="Back"></a>
                 </div>
             </div>
-            
-            
+            <br>
+            <?php if(!isset($_SESSION['user_logged'])){?>
             <div class="row">
                 <div class="col-md-12">
-                    <p>Please <a href="<?php echo site_url(); ?>/user/login"><span>Login</span></a> to add threats.</p>
+                    <p>Please <a href="<?php echo site_url(); ?>/user/login"><span>Login</span></a> to add threads.</p>
                 </div>
             </div>
+            <?php }?>
             <div class="row">
                             <div class="col-md-12">
                                 
@@ -52,9 +53,13 @@
                                 <tbody>
                                     <?php $count=1; ?>
                                     <?php foreach($forums as $forum):?>
+                                     <?php 
+                                        $type='';
+                                        if($forum['usertype']=='admin'){$type='admin';}
+                                     ?>
                                     <tr>
                                         <td><?php echo $count; ?></td>
-                                        <td><div class="row"><div class="col-12"> <a href="<?php echo site_url(); ?>/forum/view/<?php echo $forum['forum_slug_url'];?>" ><?php echo $forum['forum_title'];?></a></div></div><div class="row"><div class="col-12"><p>By <?php echo $forum['forum_startedby'];?> | on <?php echo $forum['forum_date'];?> at <?php echo $forum['forum_time'];?></p></div></div></td>
+                                        <td><div class="row"><div class="col-12"> <a href="<?php echo site_url(); ?>/forum/view/<?php echo $forum['forum_slug_url'];?>" ><?php echo $forum['forum_title'];?></a></div></div><div class="row"><div class="col-12"><p>By <?php echo $forum['forum_startedby'];?><span style="background-color:gray; border-radius:3px;"><?php echo $type; ?></span> | on <?php echo $forum['forum_date'];?> at <?php echo $forum['forum_time'];?></p></div></div></td>
                                         <td><?php echo $forum['forum_replies'];?></td>
                                         <td><?php echo $forum['forum_views'];?></td>
                                         
@@ -65,11 +70,13 @@
                                 </div>
                             </div>
             </div>
+            <?php if(isset($_SESSION['user_logged'])){?>
             <div class="row">
                 <div class="col-md-12 text-center">
                 <a href="<?php echo site_url('forum/threatform'); ?>"><button class="main-nav">Add a new threat</button></a>
                 </div>
             </div>
+            <?php }?>
             <br>
         </div>
     </body>

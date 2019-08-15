@@ -116,15 +116,10 @@ class admin extends CI_Controller {
                                $this->load->view('adminaddarticle',$data); 
 
                             }
-                       
-                       
                     }
         
-            
             }
             
-            
-       
     }
      
 }  
@@ -257,8 +252,12 @@ class admin extends CI_Controller {
                 }
                 else{
                     ////////////////function to find article id from slug and insert it into the poll table instad of slug
+                   
                         $data=$this->input->post();
-                        $datenow=date("Y-m-d H:i:s");                        
+                        $datenow=date("Y-m-d H:i:s");         
+                     ////////
+                       $article_id=$this->admin_model->getid_fromslug($data['pollurl']);
+                    ///////////
                         $category=$this->admin_model->get_category($data['pollurl']);
                             $poll_data=array(
                                 "poll_category"=>$category,
@@ -267,6 +266,7 @@ class admin extends CI_Controller {
                                 "poll_option2"=>$data['pollopt2'],
                                 "poll_option3"=>$data['pollopt3'],
                                 "poll_articleurl"=>$data['pollurl'],
+                                "poll_articleid"=>$article_id,
                                 "edited_date"=> $datenow
                             );
                             if($this->admin_model->upload_poll($poll_data)=='1'){
@@ -354,17 +354,13 @@ class admin extends CI_Controller {
                           
                                 //redirect('admin/add_category');
                             }
-                }
+                    }
             
                      $result=$this->admin_model->list_categories_not1st();
                      $data['categories']=$result['category'];
                      $data['max_category_order']=$result['max_category_order'];
                      $this->load->view('adminaddcategory',$data);
-            
-            
-            
-            
-            
+             
         }
     }
     public function form_slugrtkl(){
@@ -384,7 +380,20 @@ class admin extends CI_Controller {
         }
         
     }
+    public function delete_article($article_id){
+        $this->admin_model->delete_this_article($article_id);
+        redirect('admin/all_articles');
+    }
+    public function delete_poll($id){
+        $this->admin_model->delete_this_poll($id);
+        redirect('admin/all_polls');
+    }
+    public function article_status($article_id){
+        $this->admin_model->toggle_article_status($article_id);
+        redirect('admin/all_articles');
+    }
+    public function poll_status($poll_id){
+        $this->admin_model->toggle_poll_status($poll_id);
+        redirect('admin/all_polls');
+    }
 }
-
-
-

@@ -165,6 +165,10 @@
                         
                     </div>
                 </div>
+                <?php if(!isset($_SESSION['user_logged'])){?>
+                        <p>Please <a href="<?php echo site_url(); ?>/user/login">Login</a> to continue</p>
+                <?php }
+                    else{?>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-2">
@@ -227,6 +231,7 @@
                     </div>
                 </div> 
                 <br>
+                
                 <div class="row">
                 <!--for like and comments-->
                     <div class="col-sm-2">
@@ -272,7 +277,8 @@
                     <div class="col-sm-2">
                     </div>
                     
-                </div> 
+                </div>
+                <?php }?>
             </div>
             <br>
             <div class="col-lg-3 col-12 mostpplur">

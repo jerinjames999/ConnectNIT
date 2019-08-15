@@ -69,11 +69,13 @@
                     <a href="<?php echo site_url(); ?>/forum"><input type="button"  value="Back"></a>
                 </div>
             </div>
+            <?php if(!isset($_SESSION['user_logged'])){?>
             <div class="row">
                 <div class="col-md-12">
                     <p>Please <a href="<?php echo site_url(); ?>/user/login"><span>Login</span></a> to reply.</p>
                 </div>
             </div>
+            <?php }?>
             <div class="row main-plate">
                 <div class="col-12 main-plate">
                     <div class="row">
@@ -81,9 +83,13 @@
                             <h3><?php echo $forum['forum_title']; ?></h3>
                         </div>
                     </div>
+                    <?php 
+                        $type='';
+                        if($forum['usertype']=='admin'){$type='admin';}
+                     ?>
                     <div class="row">
                         <div class="col-12">
-                            <p>By <?php echo $forum['forum_startedby'];?> | on <?php echo $forum['forum_date'];?> at <?php echo $forum['forum_time'];?> | <?php echo $forum['forum_startedby'];?> Replies</p>
+                            <p>By <?php echo $forum['forum_startedby'];?>  <span style="background-color:gray; border-radius:3px;"><?php echo $type; ?></span>| on <?php echo $forum['forum_date'];?> at <?php echo $forum['forum_time'];?> | <?php echo $forum['forum_replies'];?> Replies</p>
                         </div>
                     </div>
                     <div class="row">
@@ -141,6 +147,7 @@
         margin-left: 8%;
     }
 </style> 
+                <?php if(isset($_SESSION['user_logged'])){?>
                 <div class="col-12">
 
                       <?php 
@@ -165,7 +172,7 @@
 
                 </div>
                 
-                  
+                <?php }?>  
 
             </div>
         </div>

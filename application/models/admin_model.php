@@ -18,9 +18,10 @@ class admin_model extends CI_Model{
         if($category=='all'){                                 /*sort according to order by join*/
             $this->db->select('articles.*');
             $this->db->from('articles');
-            $this->db->join('categories','articles.article_category=categories.category_value');
+            $this->db->order_by('edited_date','DESC');
+            //$this->db->join('categories','articles.article_category=categories.category_value');
             //$this->db->group_by('article_category');
-            $this->db->order_by('category_order','ASC');
+            //$this->db->order_by('category_order','ASC');
         }
         else{
             $this->db->select('*');
@@ -63,7 +64,6 @@ class admin_model extends CI_Model{
         $data['max_category_order']=$max_category_order;
         $data['category']=$query->result_array();
         return $data;
-        
     }
     public function list_all_categories(){
         $this->db->select('*');
@@ -80,6 +80,50 @@ class admin_model extends CI_Model{
         $this->db->update("categories");
         $this->db->insert("categories",$category_data);
         return 1;
+    }
+    ///////////
+    public function getid_fromslug($slug){
+        $this->db->select('article_id');
+        $this->db->from('articles');                       
+        $this->db->where('slug_url',$slug);
+        $query=$this->db->get();
+        $id=$query->row_array();
+        return $id['article_id'];
+    }
+    //////////
+    
+    public function delete_this_article($article_id){
+        $this->db->delete('articles',array('article_id'=>$article_id));
+        $this->db->delete('comments',array('comment_articleid'=>$article_id));
+        $this->db->delete('polls',array('poll_articleid'=>$article_id));
+    }
+    public function delete_this_poll($id){
+        $this->db->delete('polls',array('poll_articleid'=>$article_id));
+    }
+    public function toggle_article_status($article_id){
+        $date=date("Y-m-d H:i:s");
+        $this->db->set('article_status','1-article_status', FALSE);
+        $this->db->where("article_id",$article_id);
+        $this->db->update("articles");
+        
+        $this->db->select('article_status');
+        $this->db->from("articles");
+        $this->db->where("article_id",$article_id);
+        $query=$this->db->get();
+        $article_status=$query->row_array();
+        
+        if($article_status['article_status']){
+        $this->db->set('live_date',$date, true);
+        $this->db->where("article_id",$article_id);
+        $this->db->update("articles");
+        }
+        
+        
+    }
+    public function toggle_poll_status($poll_id){
+        $this->db->set('poll_status','1-poll_status', FALSE);
+        $this->db->where("poll_id",$poll_id);
+        $this->db->update("polls");
     }
         
 }

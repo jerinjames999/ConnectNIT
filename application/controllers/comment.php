@@ -29,7 +29,7 @@ class comment extends CI_Controller {
                         'parent_comment_id'=>$parent_id,
                         'comment_date'=> $datenow,
                         'comment_time'=> $timenow,
-                        'comment_uname'=> 'qwertyui'
+                        'comment_uname'=> $_SESSION['username']
                     );
                     if($this->comment_model->add_comment($data)!=1){
                         $error.='<label class="text-success">some error occured</label>';
@@ -51,9 +51,10 @@ class comment extends CI_Controller {
         $output='';
         foreach($results as $ans){
             //$ans=$result->row();
-            
+            $type='';
+            if($ans->usertype=='admin'){$type='admin';}
         $output.='<div class="card">
-                            <div class="card-header">By <b>'.$ans->comment_uname.'</b> on <i>'. $ans->comment_date.'</i></div>
+                            <div class="card-header">By <b>'.$ans->comment_uname.'</b><span style="background-color:gray; border-radius:50%">'.$type.'</span> on <i>'.$ans->comment_date.'</i></div>
                             <div class="card-body">'.$ans->comment_text.'</div>
                             <div class="card-footer" align="right"><button class="btn btn-default reply" id="'.$ans->comment_id.'" >Reply</button></div>
                 </div>';
