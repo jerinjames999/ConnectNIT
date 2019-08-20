@@ -105,7 +105,7 @@ class forum extends CI_Controller {
                     $timenow=date("H:i:s");
 
                     $data=array(
-                        'reply_formid'=>$forum_id,
+                        'reply_forumid'=>$forum_id,
                         'reply_text'=>$reply,
                         'reply_date'=> $datenow,
                         'reply_time'=> $timenow,
@@ -115,7 +115,7 @@ class forum extends CI_Controller {
                         $error.='<label class="text-success">some error occured</label>';
                     }
                     else{
-                        $error.='<label class="text-success">comment added</label>';
+                        $error.='<label class="text-success">Reply added successfuly</label>';
                         
                     }
                 
@@ -125,7 +125,7 @@ class forum extends CI_Controller {
         
     }
     public function load_all_replies(){
-        $article_id=$_POST['article_id'];
+        $forum_id=$_POST['forum_id'];
         $result=$this->comment_model->all_comments($article_id);
         $results=$result->result();
         $output='';

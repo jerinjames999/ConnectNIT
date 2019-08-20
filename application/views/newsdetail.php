@@ -21,6 +21,10 @@
     <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery-3.4.1.min.js"></script>
         <script type="text/javascript">
              $('document').ready(function(){
+                 
+                 $('.pollq').click(function(){
+                     $value=$('.pollq').val();
+                 });
                  $('.pollsubmit').click(function(event){
                     event.preventDefault();
                     
@@ -31,7 +35,7 @@
                          if($(this).is(':checked')){
                             ans=$(this).val();
                      }
-                     } );
+                     });
                      
                      //$.post('<?php //echo site_url('poll/poll_submit')?>',{'ans': ans,'id':id },function(data){ alert('success'); });
       if(typeof ans!=='undefined'){
@@ -201,8 +205,6 @@
                                             <label><?php echo $poll['poll_option3']; ?></label>
                                             
                                         </div>
-                                        
-                                        
                                         
                                         
                                         <div class="col-3 text-center">

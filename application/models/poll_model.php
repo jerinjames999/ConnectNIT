@@ -57,7 +57,6 @@ class poll_model extends CI_Model{
         $this->db->from("polls");
         $this->db->where("poll_id",$id);
         return $query=$this->db->get();
-         
     }
     
 }

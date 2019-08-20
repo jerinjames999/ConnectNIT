@@ -1,13 +1,16 @@
 <?php
 class news_model extends CI_Model{
     
-    
     public function __construct(){
         parent::__construct();
     }
+    public function get_newsby_id($id)
+     {
+        $query = $this->db->get_where('articles', array('article_id' => $id));
+        return $query->row_array();
+     }
     public function get_news($slug)
      {
-
         $query = $this->db->get_where('articles', array('slug_url' => $slug));
         return $query->row_array();
      }
@@ -56,6 +59,5 @@ class news_model extends CI_Model{
                 'data'=>$query->result_array(),
                 'count'=>$query->num_rows()
                     );
-
     }
 }

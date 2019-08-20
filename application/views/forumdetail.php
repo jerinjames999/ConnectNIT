@@ -28,11 +28,14 @@
 
                              $.ajax({
                                      type: 'POST',
-                                     url: "<?php echo site_url('forum/addforumreply')?>",
+                                     url: "<?php echo site_url('forum/addforumreply'); ?>",
                                      data : {'reply':reply,
                                              'forum_id':forum_id
                                             },
                                      success:function(data){
+                                         
+                                         
+                                         
                                         alert('thank you for your valuable response \n reply added successfully');
                                         if(data.error!=''){
                                             $('#reply_form')[0].reset();
@@ -53,8 +56,6 @@
                                         }
 
                                      });
-
-
 
                              });
                   });
@@ -101,7 +102,23 @@
             </div>
 
                 <br>
-    
+<style>
+    .reply_text{
+        width: 50%;
+    }
+    .forumreplyplate{
+        background-color: #dbdbd7;
+        border-radius: 10px;
+        width: 90%;
+    }
+    .main-plate{
+        background-color: #f2f2ee;
+        border-radius: 5px;
+    }
+    .allreplies{
+        margin-left: 8%;
+    }
+</style> 
             <div class="row">
                 <div class="col-12 allreplies">
                     <?php foreach($replies as $reply): ?>
@@ -130,23 +147,7 @@
 
 
                 </div>
-<style>
-    .reply_text{
-        width: 50%;
-    }
-    .forumreplyplate{
-        background-color: #dbdbd7;
-        border-radius: 10px;
-        width: 90%;
-    }
-    .main-plate{
-        background-color: #f2f2ee;
-        border-radius: 5px;
-    }
-    .allreplies{
-        margin-left: 8%;
-    }
-</style> 
+
                 <?php if(isset($_SESSION['user_logged'])){?>
                 <div class="col-12">
 

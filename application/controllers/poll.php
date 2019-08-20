@@ -54,7 +54,7 @@ class poll extends CI_Controller {
          $answer3=round($result->poll_ans3*100/$result->poll_response_no,1);
          
       
-        echo '<div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer1.'</p></div><div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer2.'</p></div><div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer3.'</p></div>';
+        echo '<div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer1.'%</p></div><div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer2.'%</p></div><div class="col-3 text-center"><p class="poll_percent" id="poll_percent1">'.$answer3.'%</p></div>';
      }
 }
 

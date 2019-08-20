@@ -92,6 +92,7 @@ class user extends CI_Controller {
 
           if($this->user_model->get_user($data_array)=='1'){
               $this->session->set_flashdata("success","user has been loggedin successfully");
+              //echo "<script language=javascript> javascript:history.back();</script>";
               redirect('main');
               
              
@@ -101,6 +102,7 @@ class user extends CI_Controller {
           }
         else{
                $this->session->set_flashdata("error","failed to login user");
+            
                redirect('user/login','refresh'); 
             
             }
