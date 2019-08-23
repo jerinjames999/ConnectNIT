@@ -14,7 +14,7 @@
 
                                     //if($this->session->flashdata('success')){ ?>
 
-                              <div class="row text-center my-auto"> <div class="cl-12"> <?php // echo $this->session->flashdata('success'); ?> </div></div>
+                              <div class="row text-center my-auto"><div class="cl-12"> <?php // echo $this->session->flashdata('success'); ?> </div></div>
                                 <?php //} ?>
                                  <? php //else{  ?>
                                 <div class="row text-center my-auto"><div class="cl-12"> <?php //echo $this->session->flashdata('error'); ?> </div> </div>   
@@ -50,7 +50,7 @@
                                                     </div>
                                                     <div class="col-md-12 text-center">
 
-                                                          <input type="file" name="image" > <?php if(isset($error)){echo $error;}?>
+                                                          <input type="file" name="image"> <?php if(isset($error)){echo $error;}?>
                                                     </div>
                                                 </div>
                                             </div>

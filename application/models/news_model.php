@@ -60,4 +60,27 @@ class news_model extends CI_Model{
                 'count'=>$query->num_rows()
                     );
     }
+    public function news_feed($data){
+        return $this->db->insert("news_feeds",$data);
+    }
+    public function get_news_feeds(){
+        $this->db->select('*');
+        $this->db->from('news_feeds');
+        //$this->db->join('login','news_feeds.user_id=login.user_id');
+        $this->db->order_by('edited_date','DESC');
+        $query=$this->db->get();
+        return $query->result_array();
+      
+        /*$this->db->select('news_feeds.*','login.user_uname AS username');
+        $this->db->from('news_feeds');
+        $this->db->join('login','news_feeds.user_id=login.user_id');
+        $this->db->order_by('edited_date','DESC');
+        $query=$this->db->get();
+        return $query->result_array();*/
+      
+    }
+    
 }
+
+
+

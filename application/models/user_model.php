@@ -29,6 +29,7 @@ class user_model extends CI_Model{
             $userdata=array(
                 'user_logged'=>true,
                 'user_type'=>$result['user_type'],
+                'user_id'=>$result['user_id'],
                 'username'=>$result['user_uname']
             );
             
@@ -60,4 +61,30 @@ class user_model extends CI_Model{
    $result=$query->row_array();
    return $result['user_pwd'];
   }
+    public function allusers($word=NULL){
+        if($word!=NULL){
+            $this->db->select("*");
+            $this->db->from("login");
+            $this->db->like("user_name",$word);
+            $this->db->or_like("user_uname",$word);
+            $query=$this->db->get();
+            $result=$query->result_array();
+            return $result;
+        }
+        else{
+        $this->db->select("*");
+        $this->db->from("login");
+        $query=$this->db->get();
+        $result=$query->result_array();
+        return $result;
+        }
+    }
+    public function fetch_user($id=NULL){
+        $this->db->select("*");
+        $this->db->from("login");
+        $this->db->where("user_id",$id);
+        $query=$this->db->get();
+        $result=$query->row_array();
+        return $result;
+    }
 }

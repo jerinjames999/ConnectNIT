@@ -73,7 +73,7 @@
             <?php if(isset($_SESSION['user_logged'])){?>
             <div class="row">
                 <div class="col-md-12 text-center">
-                <a href="<?php echo site_url('forum/threatform'); ?>"><button class="main-nav">Add a new threat</button></a>
+                <a href="<?php echo site_url('forum/threatform'); ?>"><button class="main-nav">Add a new thread</button></a>
                 </div>
             </div>
             <?php }?>

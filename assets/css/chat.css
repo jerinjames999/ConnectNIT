@@ -1,0 +1,23 @@
+
+.chater{
+    height: 70px !important;
+}
+.chater img{
+    height: 50px;
+    width: auto;
+}
+.scroller{
+    height:86vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.scrollcomment{
+    height:80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.comnt{
+    width: 100%;
+}
+
+

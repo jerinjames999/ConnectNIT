@@ -28,10 +28,22 @@
           
                <div class="row navrow lineafter d-none d-lg-block">
                       <a href="<?php echo site_url('main'); ?>"><button class="main-nav">home</button></a>
-                       <?php foreach($categories as $category) : 
+                   <?php if(isset($_SESSION['user_logged'])){ ?>
+                      <a href="<?php echo site_url('news_feeds'); ?>"><button class="main-nav">Story</button></a>
+                      <a href="<?php echo site_url(); ?>/forum"><button class="main-nav">Threads</button></a>
+                      <a href="#"><button class="main-nav"><i class="fa fa-bell" aria-hidden="true"></i></button></a>
+                      <a href="#"><button class="main-nav">Carrer</button></a>
+                      <a href="#"><button class="main-nav">Gallery</button></a>
+                      <a href="#"><button class="main-nav">Groups</button></a>
+                      <a href="#"><button class="main-nav">Quizzes</button></a>
+                      <a href="#"><button class="main-nav">FAQ</button></a>
+                      <a href="<?php echo site_url(); ?>/user/profile/<?php echo $_SESSION['user_id']; ?>" style="float:right;"><button class="main-nav btn-primary">My Profile</button></a>
+                   <?php }?>
+                       <!--<?php foreach($categories as $category) : 
                           if($category['category_hname']!='MAIN NEWS') { ?>
                                <a href="<?php echo site_url('main/page/'.$category['category_value']); ?>"><button class="main-nav"><?php echo strtolower($category['category_hname']) ?></button></a>
-                       <?php } endforeach ?>
+                       <?php } endforeach ?>-->
+                        
                 </div>
         
             <div class="row lineafter">
@@ -39,7 +51,7 @@
                     <a href="#" class="newstext">
                         <div class="row notes ">
                             <div class="col-5 containimg">
-                                <img src="<?php echo base_url();?>assets/images/articles/eg.jpg" class="img-fluid img-thumbnail">
+                                <img src="<?php echo base_url();?>assets/images/head/sportsballs.png" class="img-fluid img-thumbnail">
                             </div>
                             <div class="col-7">
                                 
@@ -54,10 +66,11 @@
                     <a href="#" class="newstext">
                         <div class="row notes ">
                                 <div class="col-5 containimg">
-                                    <img src="<?php echo base_url();?>assets/images/articles/eg.jpg" class="img-fluid img-thumbnail">
+                                    <img src="<?php echo base_url();?>assets/images/head/edu.png" class="img-fluid img-thumbnail">
                                 </div>
                                 <div class="col-7">
-                                    <h6>Money conversions</h6>
+                                    <h6>Education</h6>
+                                    <p>Aiming at NITs.</p>
                                 </div>
                          </div>
                     </a>
@@ -66,10 +79,11 @@
                     <a href="#" class="newstext">
                     <div class="row notes ">
                             <div class="col-5 containimg">
-                                <img src="<?php echo base_url();?>assets/images/articles/eg.jpg" class="img-fluid img-thumbnail  ">
+                                <img src="<?php echo base_url();?>assets/images/head/nit.png" class="img-fluid img-thumbnail  ">
                             </div>
                             <div class="col-7">
-                                <h6>nitrkl been the next super nit</h6>
+                                <h6>NITs,pushing forward</h6>
+                                <p>everything with NITs.</p>
                             </div>
                      </div>
                     </a>
@@ -78,7 +92,7 @@
                     <a href="#" class="newstext">
                     <div class="row notes ">
                             <div class="col-5 containimg">
-                                <img src="<?php echo base_url();?>assets/images/articles/eg.jpg" class="img-fluid img-thumbnail  ">
+                                <img src="<?php echo base_url();?>assets/images/head/wether.jpg" class="img-fluid img-thumbnail  ">
                             </div>
                             <div class="col-7">
                                 <h6>Today's Weather</h6>

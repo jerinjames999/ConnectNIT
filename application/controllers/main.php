@@ -90,5 +90,12 @@ class main extends CI_Controller {
     }
     
     
+    public function carrer(){
+        $this->load->view('carrer');
+    }
+    
+    
+    
+    
     
 }

@@ -39,7 +39,9 @@ class forum extends CI_Controller {
     $this->form_validation->set_rules('description','Description','min_length[20]');
 
         if($this->form_validation->run()==false){
+            $this->load->view('header');
             $this->load->view('addthreat');
+            $this->load->view('footer');
 
         }
         else{
@@ -57,13 +59,17 @@ class forum extends CI_Controller {
                         "forum_time"=> $timenow
                     );
                     if($this->forum_model->upload_threat($threat_data)=='1'){
-                           $data['upload_data']='article uploaded successfully';                   
+                           $data['upload_data']='Thread uploaded successfully';
+                           $this->load->view('header');
                            $this->load->view('addthreat',$data);
+                           $this->load->view('footer');
 
                       }
                     else{   
-                           $data['upload_data']='article uploading failed';
+                           $data['upload_data']='Thread uploading failed';
+                           $this->load->view('header');
                            $this->load->view('addthreat',$data); 
+                           $this->load->view('footer');
 
                         }
              
@@ -109,7 +115,7 @@ class forum extends CI_Controller {
                         'reply_text'=>$reply,
                         'reply_date'=> $datenow,
                         'reply_time'=> $timenow,
-                        'reply_uname'=> 'qwertyui'
+                        'reply_uname'=> $_SESSION['username']
                     );
                     if($this->forum_model->add_reply($data)!=1){
                         $error.='<label class="text-success">some error occured</label>';

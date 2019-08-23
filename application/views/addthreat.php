@@ -20,7 +20,7 @@
         <div class="col-md-12" id="addarticle1">
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <h2>ADD NEW THREAT</h2>
+                                <h2>ADD NEW THREAD</h2>
                             </div>
                         </div>
                         <div class="row">
@@ -60,7 +60,7 @@
                                        <br>
                                         <div class="row">
                                             <div class="col-md-12 text-center">
-                                                <input type="submit" name="add-thread" value="ADD THREAT">
+                                                <input type="submit" name="add-thread" value="ADD THREAD">
                                             </div>
                                         </div>
                                 <br>

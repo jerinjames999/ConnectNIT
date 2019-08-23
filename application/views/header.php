@@ -25,7 +25,6 @@
         
     <header>
     
-        
         <div class="container">
             <div class="row headrow">
                     <div class="col-sm-3 col-3 my-auto">
@@ -55,12 +54,12 @@
                     </div>
 
                     <div class="col-sm-5 col-5 text-center my-auto name">
-                           <h1>newspaper</h1>               
+                           <h1>ConnectNIT</h1>               
                     </div>
 
                     <div class="col-sm-4 col-3 my-auto option">
                         <div class="row my-auto text-right">
-                               
+                            
                                        <div class="col-sm-4  text-left admin">
                                            <?php if(isset($_SESSION['user_type'])){
                                                     if($_SESSION['user_type']=='admin'){?>
@@ -77,17 +76,19 @@
                                            <?php } ?>
                                        </div>
                                        <div class="col-sm-4 col-6 text-left">
-                                           <a href="#"><button class="btn btn-dark btn-sm">subscribe</button></a>
+                                           <?php if(isset($_SESSION['user_logged'])){?>
+                                           <a href="<?php echo site_url('chat');  ?>"><button class="btn btn-dark btn-sm"><i class="fa fa-comments" aria-hidden="true"></i></button></a>
+                                           <?php }?>
                                        </div>
                                    
                         </div>
                         <div class="row" >
 
-                      <div class="col-sm-12 col-12 text-left search">
-                                  <?php echo form_open('main/search',array('method'=>'get'));?>
-                                   <input type="search" placeholder="Search.." maxlength="25" name="search" autocomplete="on">
-                                   <button type="submit" name="submit" class=" btn-secondary"><i class="fas fa-search"></i></button>
-                                  <?php echo form_close()?>
+                              <div class="col-sm-12 col-12 text-left search">
+                                          <?php echo form_open('main/search',array('method'=>'get'));?>
+                                           <input type="search" placeholder="Search.." maxlength="25" name="search" autocomplete="on">
+                                           <button type="submit" name="submit" class=" btn-secondary"><i class="fas fa-search"></i></button>
+                                          <?php echo form_close()?>
                               </div>
                         </div>
                     </div>

@@ -106,7 +106,7 @@ margin-top: 10px;
                             </div>
                             <div class="row adminopt">
                                 <div class="col-md-12 text-center">
-                                    <a href="<?php echo site_url('admin/edit_status');?>"><h3 id="editstatus">EDIT STATUS</h3></a>
+                                    <a href="<?php echo site_url('admin/edit_status');?>"><h3 id="editstatus">NOTIFY</h3></a>
                                 </div>
                             </div>
                             <div class="row adminopt">

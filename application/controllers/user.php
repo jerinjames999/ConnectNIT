@@ -165,6 +165,9 @@ class user extends CI_Controller {
         }
             
     }
-    
+    public function profile($id){
+        $data['profile']=$this->user_model->fetch_user($id);
+        $this->load->view('userprofile',$data);
+    }
     
 }

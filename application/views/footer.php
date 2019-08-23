@@ -140,11 +140,10 @@
         <div class="row ">
           <nav class="fnav col-sm-12">
               <ul>
-                  <li><a href="#"><p>&copy;2018-<?php echo date('Y');?> newspaper </p></a></li>
+                  <li><a href="#"><p>&copy;2018-<?php echo date('Y');?> ConnectNIT</p></a></li>
                   <li><a href="#"><p>Contact us</p></a></li>
                   <li><a href="#"><p>Advertise</p></a></li>
                   <li><a href="#"><p>Work with us</p></a></li>
-                  <li><a href="<?php echo site_url(); ?>/forum"><p>Forums</p></a></li>
                   <li><a href="#"><p>Subsccribe</p></a></li>
                   <li><a href="#"><p>Help</p></a></li>
               </ul>
