@@ -1,4 +1,4 @@
-<?php include_once('chatplate.php')?>
+<?php include('chatplate.php');?>
 <div class="col-sm-9">
                     <a href="<?php echo site_url();?>user/profile/<?php if($chats['user1_id']!=$_SESSION['user_id']){echo $chats['user1_id']; } else{echo $chats['user2_id'];} ;?>">
                         <div class="row" style="background-color:#90efbc;">
@@ -14,7 +14,7 @@
                     <div class=" scrollcomment">
                         <div class="row">
                             <div class="col-12" style="height:610px">
-
+                                    
                             </div>
                         </div>
                     </div>

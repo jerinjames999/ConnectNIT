@@ -14,7 +14,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.min.css">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.min.css.map">
      
-    <title>signup:newspaper</title>
+    <title>signup:ConnectNIT</title>
                <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/signup.css">-->
         
 

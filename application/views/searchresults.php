@@ -17,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.min.css.map">
      
 
-    <title>newspaper:home</title>
+    <title>ConnectNIT:home</title>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/fontawesome/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/home.css">
     </head>

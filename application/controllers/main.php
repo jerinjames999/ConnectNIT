@@ -93,6 +93,12 @@ class main extends CI_Controller {
     public function carrer(){
         $this->load->view('carrer');
     }
+    public function gallery(){
+        $this->load->view('gallery');
+    }
+    public function faq(){
+        $this->load->view('faq');
+    }
     
     
     

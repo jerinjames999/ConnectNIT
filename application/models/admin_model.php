@@ -98,7 +98,20 @@ class admin_model extends CI_Model{
         $this->db->delete('polls',array('poll_articleid'=>$article_id));
     }
     public function delete_this_poll($id){
-        $this->db->delete('polls',array('poll_articleid'=>$article_id));
+        $this->db->delete('polls',array('poll_id'=>$id));
+    }
+    public function delete_this_category($id){
+        $this->db->select('category_order');
+        $this->db->from('categories');
+        $this->db->where("category_id",$id);
+        $query=$this->db->get();
+        $data=$query->row_array();
+        
+        $this->db->set('category_order','category_order-1', FALSE);
+        $this->db->where("category_order >",$data['category_order']);
+        $this->db->update("categories");
+        
+        $this->db->delete('categories',array('category_id'=>$id));
     }
     public function toggle_article_status($article_id){
         $date=date("Y-m-d H:i:s");
@@ -124,6 +137,11 @@ class admin_model extends CI_Model{
         $this->db->set('poll_status','1-poll_status', FALSE);
         $this->db->where("poll_id",$poll_id);
         $this->db->update("polls");
+    }public function toggle_category_status($category_id){
+        $this->db->set('category_status','1-category_status', FALSE);
+        $this->db->where("category_id",$category_id);
+        $this->db->update("categories");
     }
+    
         
 }

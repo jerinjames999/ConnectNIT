@@ -56,6 +56,7 @@ class comment extends CI_Controller {
         $output.='<div class="card">
                             <div class="card-header">By <b>'.$ans->comment_uname.'</b><span style="background-color:gray; border-radius:3px">'.$type.'</span> on <i>'.$ans->comment_date.'</i></div>
                             <div class="card-body">'.$ans->comment_text.'</div>
+                            
                             <div class="card-footer" align="right"><button class="btn btn-default reply" id="'.$ans->comment_id.'" >Reply</button></div>
                 </div>';
         }

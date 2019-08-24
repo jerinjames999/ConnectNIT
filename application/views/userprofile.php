@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.css.map">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.min.css">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.min.css.map">
-    <title>chat:newspaper</title>
+    <title>chat:ConnectNIT</title>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/fontawesome/css/all.min.css">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/header.css">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/chat.css">
@@ -39,7 +39,7 @@
                     <br>
                     <div class="row">
                         <div class="col-4 text-center">
-                            <button type="submit">ADD</button>
+                            <button type="submit">BLOCK</button>
                         </div>
                         <div class="col-4 text-center">
                             <button type="submit">EDIT</button>

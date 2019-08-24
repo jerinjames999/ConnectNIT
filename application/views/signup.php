@@ -14,14 +14,14 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.min.css">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.min.css.map">
      
-    <title>signup:newspaper</title>
+    <title>signup:ConnectNIT</title>
                 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/signup.css">
 
     </head>
     <body>
            <div class="container">
            <div class="row">
-               <div class="col-sm-12 text-center heading"><h3>Create your NEWSPAPER Account</h3></div>
+               <div class="col-sm-12 text-center heading"><h3>Create your ConnectNIT Account</h3></div>
            </div>
            <div class="row  gfsingup">
                <div class="col-sm-6 col-6 text-right">
@@ -79,8 +79,8 @@
                       <?php echo form_error("email",'<h6 class="col-sm-12 text-center my-auto error">','</h6>'); ?>
                       <div class="col-sm-4 col-4"></div>
                        <div class="col-sm-2 col-2">
-                           Email: </div>
-                      <div class="col-sm-6 col-6 my-auto"><input type=" email" name="email" value="<?php echo set_value('email') ?>" placeholder="email"/></div>
+                           Webmail: </div>
+                      <div class="col-sm-6 col-6 my-auto"><input type=" email" name="email" value="<?php echo set_value('email') ?>" placeholder="webmail"/></div>
                   </div>
                   <div class="row">
                       <?php echo form_error("pwd",'<h6 class="col-sm-12 text-center my-auto error">','</h6>'); ?>

@@ -17,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.min.css.map">
      
 
-    <title>newspaper:home</title>
+    <title>ConnectNIT:home</title>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/fontawesome/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/home.css">
     </head>
@@ -50,6 +50,14 @@
                                         <th scope="col">views</th>
                                     </tr>
                                   </thead>
+                                    
+                                    <style>
+                                    .customLink, .customLink:hover{
+                                          color: black;
+                                          text-decoration: none;
+                                        }
+                                    </style>
+                                    
                                 <tbody>
                                     <?php $count=1; ?>
                                     <?php foreach($forums as $forum):?>
@@ -59,7 +67,7 @@
                                      ?>
                                     <tr>
                                         <td><?php echo $count; ?></td>
-                                        <td><div class="row"><div class="col-12"> <a href="<?php echo site_url(); ?>/forum/view/<?php echo $forum['forum_slug_url'];?>" ><?php echo $forum['forum_title'];?></a></div></div><div class="row"><div class="col-12"><p>By <?php echo $forum['forum_startedby'];?><span style="background-color:gray; border-radius:3px;"><?php echo $type; ?></span> | on <?php echo $forum['forum_date'];?> at <?php echo $forum['forum_time'];?></p></div></div></td>
+                                        <td><div class="row"><div class="col-12"> <a href="<?php echo site_url(); ?>/forum/view/<?php echo $forum['forum_slug_url'];?>" class="customLink" ><h5><?php echo $forum['forum_title'];?></h5></a></div></div><div class="row"><div class="col-12"><p>By <?php echo $forum['forum_startedby'];?><span style="background-color:gray; border-radius:3px;"><?php echo $type; ?></span> | on <?php echo $forum['forum_date'];?> at <?php echo $forum['forum_time'];?></p></div></div></td>
                                         <td><?php echo $forum['forum_replies'];?></td>
                                         <td><?php echo $forum['forum_views'];?></td>
                                         
@@ -73,7 +81,7 @@
             <?php if(isset($_SESSION['user_logged'])){?>
             <div class="row">
                 <div class="col-md-12 text-center">
-                <a href="<?php echo site_url('forum/threatform'); ?>"><button class="main-nav">Add a new thread</button></a>
+                <a href="<?php echo site_url('forum/threatform'); ?>"><button  class="main-nav btn-default">Add a new thread</button></a>
                 </div>
             </div>
             <?php }?>

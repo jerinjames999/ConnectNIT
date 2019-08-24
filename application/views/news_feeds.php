@@ -17,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.min.css.map">
      
 
-    <title>newspaper:home</title>
+    <title>ConnectNIT:home</title>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/fontawesome/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/home.css">
     </head>
@@ -47,15 +47,25 @@
                                 </div>
                     </div>
                 <?php echo form_close();?>
+            <style>
+                .cbody{
+                    background-color: #efefef;
+                }
+                .cbody:hover{
+                    background-color: #e9e9e9;
+                }
+            
+            </style>
+            
                 <?php foreach($news_feeds as $news_feed):?>
             <div class="card">
                           
                         <div class="card-header"><b><?php echo $news_feed['user_id']; ?></b></div>
                 
-                        <div class="card-body text-center">
+                        <div class="card-body text-center cbody">
                             <p class="text-left"><?php echo  $news_feed['news_feed_content']; ?></p>
                             <?php if($news_feed['news_feed_img']!=''){ ?>
-                            <img src="<?php echo base_url();?>assets/images/news_feeds/<?php echo $news_feed['news_feed_img']; ?>" width=80%; >
+                            <img src="<?php echo base_url();?>assets/images/news_feeds/<?php echo $news_feed['news_feed_img']; ?>" width=60%; >
                             <?php }?>
                         </div>
                 

@@ -16,7 +16,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.min.css.map">
      
 
-    <title>newspaper</title>
+    <title>ConnectNIT</title>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/newsdetail.css">
     <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery-3.4.1.min.js"></script>
         <script type="text/javascript">
@@ -101,7 +101,6 @@
                                              url:"<?php echo site_url('comment/load_all_comments')?>",
                                              data:{'article_id':article_id},
                                              success:function(data){
-                                                 alert('xxxxxxxxxxxxxx');
                                                  $('#comments').html(data);
                                              }
                                          });

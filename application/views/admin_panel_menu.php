@@ -16,7 +16,7 @@
 
      
 
-    <title>Admin:newspaper</title>
+    <title>Admin:ConnectNIT</title>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/fontawesome/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/admin.css">  
     </head>
@@ -96,7 +96,7 @@ margin-top: 10px;
                             </div>
                             <div class="row adminopt">
                                 <div class="col-md-12 text-center">
-                                    <a href="<?php echo site_url('admin/delete_category');?>"><h3 id="deletecategory">DELETE CATEGORY</h3></a>
+                                    <a href="<?php echo site_url('admin/all_categories');?>"><h3 id="deletecategory">ALL CATEGORIES</h3></a>
                                 </div>
                             </div>
                             <div class="row adminopt">

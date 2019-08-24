@@ -12,12 +12,15 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.css.map">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.min.css">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.min.css.map">
-    <title>login:newspaper</title>
+    <title>login:ConnectNIT</title>
                 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/signup.css">
 
     </head>
     <body>
            <div class="container">
+           <div class="row">
+               <div class="col-sm-12 text-center heading"><h2>ConnectNIT</h2></div>
+           </div>
            <div class="row">
                <div class="col-sm-12 text-center heading"><h3>Login to your Account</h3></div>
            </div>
@@ -101,7 +104,7 @@
                   <div class="col-sm-12 text-center my-auto"><button type="submit" name="submit">Log in</button></div>  
                   </div>
                    <div class="row ">
-                  <div class="col-sm-12 text-center"><p>Don't have NEWSPAPER account ? <a href="<?php   echo site_url('user/signup');  ?>">Create one</a>.</p></div>
+                  <div class="col-sm-12 text-center"><p>Don't have ConnectNIT account ? <a href="<?php   echo site_url('user/signup');  ?>">Create one</a>.</p></div>
                 </div>
             <?php echo form_close(); ?>           
             </div>

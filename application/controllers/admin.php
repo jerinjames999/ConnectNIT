@@ -43,15 +43,16 @@ class admin extends CI_Controller {
         $data['max_category_order']=$result['max_category_order'];
         $this->load->view('adminaddcategory',$data);
     }
-    public function delete_category(){
-        $this->load->view('admindeletecategory');
+    public function all_categories(){
+        $result['datas']=$this->admin_model->list_all_categories();
+        $this->load->view('adminallcategories',$result);
     }
     public function answer_question(){
         $this->load->view('adminansquestion');
     }
-    public function edit_status(){
+    /*public function edit_status(){
         $this->load->view('admineditstatus');
-    }
+    }*/
     public function add_admin(){
         $this->load->view('adminaddadmin');
     }
@@ -388,6 +389,10 @@ class admin extends CI_Controller {
         $this->admin_model->delete_this_poll($id);
         redirect('admin/all_polls');
     }
+    public function delete_category($id){
+        $this->admin_model->delete_this_category($id);
+        redirect('admin/all_categories');
+    }
     public function article_status($article_id){
         $this->admin_model->toggle_article_status($article_id);
         redirect('admin/all_articles');
@@ -395,5 +400,9 @@ class admin extends CI_Controller {
     public function poll_status($poll_id){
         $this->admin_model->toggle_poll_status($poll_id);
         redirect('admin/all_polls');
+    }
+    public function category_status($category_id){
+        $this->admin_model->toggle_category_status($category_id);
+        redirect('admin/all_categories');
     }
 }

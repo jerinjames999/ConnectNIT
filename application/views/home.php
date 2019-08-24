@@ -17,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap/css/bootstrap-reboot.min.css.map">
      
 
-    <title>newspaper:home</title>
+    <title>ConnectNIT:home</title>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/fontawesome/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/home.css">
     </head>
@@ -32,11 +32,13 @@
                       <a href="<?php echo site_url('news_feeds'); ?>"><button class="main-nav">Story</button></a>
                       <a href="<?php echo site_url(); ?>/forum"><button class="main-nav">Threads</button></a>
                       <a href="#"><button class="main-nav"><i class="fa fa-bell" aria-hidden="true"></i></button></a>
-                      <a href="#"><button class="main-nav">Carrer</button></a>
-                      <a href="#"><button class="main-nav">Gallery</button></a>
+                        <a href="<?php echo site_url(); ?>/main/gallery"><button class="main-nav">Gallery</button></a>
+                        <a href="#"><button class="main-nav">Carrer</button></a>
+                  
+                      
                       <a href="#"><button class="main-nav">Groups</button></a>
                       <a href="#"><button class="main-nav">Quizzes</button></a>
-                      <a href="#"><button class="main-nav">FAQ</button></a>
+                      <a href="<?php echo site_url(); ?>/main/faq"><button class="main-nav">FAQ</button></a>
                       <a href="<?php echo site_url(); ?>/user/profile/<?php echo $_SESSION['user_id']; ?>" style="float:right;"><button class="main-nav btn-primary">My Profile</button></a>
                    <?php }?>
                        <!--<?php foreach($categories as $category) : 
@@ -138,7 +140,7 @@
                                   <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><img src="<?php echo base_url().$news['article_img'];?>" class="img-fluid img-thumbnail  "></a>                                      <figcaption class="figure-caption "><?php echo $news['article_description'] ; ?></figcaption>
                                                 </figure>
 
-                                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><p><?php echo substr($news['article_content'],0,1350).'...';?></p></a>
+                                                <a href="<?php echo site_url(); ?>/main/view/<?php echo $news['slug_url'] ; ?>" class="newstext"><p><?php echo substr($news['article_content'],0,1150).'...';?></p></a>
                                             </div>
                                             </a>
                                             <div class="col-12">
